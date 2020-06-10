@@ -8,7 +8,6 @@ const Main = () => {
   useEffect(() => {
     fetchData()
       .then(response => {
-        console.log(response)
         setData(response.data.content)
       })
   }, [])
@@ -16,12 +15,12 @@ const Main = () => {
   const data = useMemo(() =>
     dataa.map(item => {
       return {
-        col1: 'placeholder',
+        col1: <input type='checkbox'/>,
         col2: item.nameRu,
         col3: item.brand.name,
         col4: 'placeholder',
         col5: item.minPrice,
-        col6: 'placeholder',
+        col6: <button>Delete</button>,
       }
     }), [dataa]
   )
@@ -56,8 +55,6 @@ const Main = () => {
     []
   )
 
-  console.log(data)
-
   return (
         <div>
           { data.length === 0 ?
@@ -67,7 +64,7 @@ const Main = () => {
             :
             <Table
               columns = { columns }
-              data = { data }
+              apiData = { data }
             />
           }
         </div>
