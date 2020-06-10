@@ -7,45 +7,41 @@ import TH from '../molecules/TH'
 const Table = ({ columns, apiData, ...props }) => {
     const [data, setData] = useState(apiData)
     const [alphabeticCheck, setAlphabeticCheck] = useState(true)
+    const [descSort, setDescSort] = useState(false)
 
-    const sort = (isBrand) => {
-        var dataBuffer = data
+    // не успел в общею функцию сортировки
+//    const sort = (isBrand) => {
+//        var dataBuffer = data
 //        if (!alphabeticCheck) {
 //            dataBuffer.reverse()
 //            setData([...dataBuffer])
 //            return
 //        }
-
-        dataBuffer.sort(function(a, b){
-            a = a.col3
-            b = b.col3
-
-            if (!isBrand){
-                a = a.col5
-                b = b.col5
-
-            }
-
-            if(a < b) { return -1; }
-            if(a > b) { return 1; }
-            return 0;
-        })
-        setData([...dataBuffer])
+//
+//        dataBuffer.sort(function(a, b){
+//            a = a.col3
+//            b = b.col3
+//
+//            if (!isBrand){
+//                a = a.col5
+//                b = b.col5
+//
+//            }
+//
+//            if(a < b) { return -1; }
+//            if(a > b) { return 1; }
+//            return 0;
+//        })
+//        setData([...dataBuffer])
 //        setAlphabeticCheck(!alphabeticCheck)
-    }
+//    }
 
     const brandSort = () => {
         var dataBuffer = data
-        if (!alphabeticCheck) {
-            dataBuffer.reverse()
-            setData([...dataBuffer])
-            return
-        }
-
 
         dataBuffer.sort(function(a, b){
-            if(a.col3 < b.col3) { return -1; }
-            if(a.col3 > b.col3) { return 1; }
+             if(a.col3 < b.col3) { return !alphabeticCheck ? 1 : -1; }
+             if(a.col3 > b.col3) { return !alphabeticCheck ? -1 : 1; }
             return 0;
         })
         setData([...dataBuffer])
@@ -54,28 +50,23 @@ const Table = ({ columns, apiData, ...props }) => {
 
     const costSort = () => {
         var dataBuffer = data
-//        if (!alphabeticCheck) {
-//            dataBuffer.reverse()
-//            setData([...dataBuffer])
-//            return
-//        }
-
 
         dataBuffer.sort(function(a, b){
-            if(a.col5 < b.col5) { return -1; }
-            if(a.col5 > b.col5) { return 1; }
+            if(a.col5 < b.col5) { return descSort ? 1 : -1; }
+            if(a.col5 > b.col5) { return descSort ? -1 : 1; }
             return 0;
         })
+        console.log(dataBuffer)
         setData([...dataBuffer])
-//        setAlphabeticCheck(!alphabeticCheck)
+        setDescSort(!descSort)
     }
 
     const columnActionSwitch = (key) => {
         switch (key) {
             case 'header_col3':
-                return sort(true)
+                return brandSort()
             case 'header_col5':
-                return sort(false)
+                return costSort()
             default:
                 return
         }
