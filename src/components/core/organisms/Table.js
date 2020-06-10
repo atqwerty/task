@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useTable } from 'react-table'
 import TD from '../molecules/TD'
 import TH from '../molecules/TH'
+import TableStyled from '../../styled/organisms/TableStyled'
 
 
 const Table = ({ columns, apiData, ...props }) => {
@@ -81,9 +82,8 @@ const Table = ({ columns, apiData, ...props }) => {
   } = useTable({ columns, data })
 
     return (
-          <table
+          <TableStyled
             {...getTableProps()}
-            style={{ border: 'solid 1px blue' }}
           >
             <thead>
               {headerGroups.map(headerGroup => (
@@ -118,7 +118,7 @@ const Table = ({ columns, apiData, ...props }) => {
                 )
               })}
             </tbody>
-          </table>
+          </TableStyled>
 
     )
 }
